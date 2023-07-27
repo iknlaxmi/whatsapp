@@ -6,6 +6,7 @@ const ChatRoom = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
+  const [to, setTo] = useState('');
 
   useEffect(() => {
     // connect to WebSocket server
@@ -18,7 +19,7 @@ const ChatRoom = () => {
       console.log('Disconnected from WebSocket')
     );
     newSocket.on('message', (data) => {
-      setMessages((msgs) => [...msgs, data]);
+      setMessages((msgs) => [...msgs, data.message]);
     });
 
     // clean up on unmount
@@ -31,8 +32,9 @@ const ChatRoom = () => {
     e.preventDefault();
     if (message.trim() !== '') {
       // send message to WebSocket server
-      socket.emit('message', message);
+      socket.emit('message', { to, message });
       setMessage('');
+      setTo('');
     }
   };
 
@@ -45,6 +47,7 @@ const ChatRoom = () => {
         ))}
       </div>
       <form onSubmit={handleSend}>
+        <input type="text" value={to} onChange={(e) => setTo(e.target.value)} />
         <input
           type="text"
           value={message}
