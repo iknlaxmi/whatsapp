@@ -4,7 +4,7 @@ const { Server } = require('socket.io');
 const httpServer = http.createServer();
 
 const PORT = 8080,
-  HOST = 'localhost';
+  HOST = '44.204.212.12';
 const clients = {};
 const io = new Server(httpServer, {
   cors: {
