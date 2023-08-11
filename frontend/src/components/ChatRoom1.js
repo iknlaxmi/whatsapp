@@ -15,7 +15,7 @@ const ChatRoom = () => {
 
   useEffect(() => {
     // connect to WebSocket server
-    const WEB_URL = `ws://localhost:8080?session_id=${myData.name}`;
+    const WEB_URL = `ws://localhost:8080?session_id= ${myData.name}`;
     console.log(WEB_URL);
     const newSocket = io(WEB_URL);
     setSocket(newSocket);
